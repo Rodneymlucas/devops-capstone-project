@@ -57,9 +57,6 @@ def create_accounts():
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
     )
 
-######################################################################
-# LIST ALL ACCOUNTS
-######################################################################
 
 ######################################################################
 # LIST ALL ACCOUNTS
@@ -82,11 +79,6 @@ def list_accounts():
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
-
-# ... place you code here to READ an account ...
-######################################################################
-# READ AN ACCOUNT
-######################################################################
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def get_accounts(account_id):
     """
@@ -101,9 +93,6 @@ def get_accounts(account_id):
 
     return account.serialize(), status.HTTP_200_OK
 
-######################################################################
-# UPDATE AN EXISTING ACCOUNT
-######################################################################
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
@@ -123,12 +112,8 @@ def update_accounts(account_id):
     account.deserialize(request.get_json())
     account.update()
 
-    return account.serialize(), status.HTTP_200_OK# ... place you code here to UPDATE an account ...
+    return account.serialize(), status.HTTP_200_OK
 
-
-######################################################################
-# DELETE AN ACCOUNT
-######################################################################
 
 ######################################################################
 # DELETE AN ACCOUNT
@@ -155,11 +140,9 @@ def delete_accounts(account_id):
 
 def check_content_type(media_type):
     """Checks that the media type is correct"""
+
     content_type = request.headers.get("Content-Type")
     if content_type and content_type == media_type:
         return
     app.logger.error("Invalid Content-Type: %s", content_type)
-    abort(
-        status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-        f"Content-Type must be {media_type}",
-    )
+    abort(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, f"Content-Type must be {media_type}", )
